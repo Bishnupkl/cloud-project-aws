@@ -25,9 +25,7 @@ const Login = ({ toggleView }) => {
             console.log('Token received:', token); // Log the token for debugging
             localStorage.setItem('authToken', token); // Save token in localStorage
             localStorage.setItem('profileImageUrl', profileImageUrl); // Save profile image URL
-
             navigate('/profile'); // Redirect to profile
-            window.location.reload(); // Refresh the page after navigating
         } catch (error) {
             console.error('Login error:', error);
             setMessage('Login failed. Please try again.');
