@@ -45,7 +45,7 @@ const Signup = ({ toggleView }) => {
             const contentType = file.type;
 
             const response = await axios.post(
-                'https://ynw120kvuh.execute-api.us-east-1.amazonaws.com/k-prod/signup',
+                'https://77gfxqf5b7.execute-api.us-east-1.amazonaws.com/production/signup',
                 { filename: uniqueFilename, contentType, email, name, password }
             );
 

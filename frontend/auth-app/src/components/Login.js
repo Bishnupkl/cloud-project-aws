@@ -20,17 +20,20 @@ const Login = ({ toggleView }) => {
         setMessage('');
 
         try {
-            const response = await axios.post('https://ynw120kvuh.execute-api.us-east-1.amazonaws.com/k-prod/login', { email, password });
+            const response = await axios.post('https://77gfxqf5b7.execute-api.us-east-1.amazonaws.com/production/login', { email, password });
             const { token, profileImageUrl } = response.data; // Ensure this token is in JWT format
             console.log('Token received:', token); // Log the token for debugging
             localStorage.setItem('authToken', token); // Save token in localStorage
             localStorage.setItem('profileImageUrl', profileImageUrl); // Save profile image URL
+
             navigate('/profile'); // Redirect to profile
+            window.location.reload(); // Refresh the page after navigating
         } catch (error) {
             console.error('Login error:', error);
             setMessage('Login failed. Please try again.');
+        } finally {
+            setLoading(false); // Set loading state back to false after request is done
         }
-        console.log('Logging in:', { email, password });
     };
 
     return (

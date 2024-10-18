@@ -61,7 +61,7 @@ const Profile = () => {
 
         try {
             // Call the backend to update the profile image
-            const response = await axios.put('https://ynw120kvuh.execute-api.us-east-1.amazonaws.com/k-prod/updateProfileImage', {
+            const response = await axios.put('https://77gfxqf5b7.execute-api.us-east-1.amazonaws.com/production/update', {
                 email,
                 oldImageKey,
                 newFilename: uniqueFilename,
@@ -76,7 +76,7 @@ const Profile = () => {
             });
 
             // Update local storage and state
-            const updatedImageUrl = `https://k-storage-images.s3.amazonaws.com/${uniqueFilename}`;
+            const updatedImageUrl = `https://profile-images-auth-app.s3.amazonaws.com/${uniqueFilename}`;
             localStorage.setItem('profileImageUrl', updatedImageUrl);
             setImage(updatedImageUrl);
             setMessage('Image uploaded successfully!');
