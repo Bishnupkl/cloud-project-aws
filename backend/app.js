@@ -3,10 +3,10 @@ import { DynamoDBClient, PutItemCommand, GetItemCommand, UpdateItemCommand } fro
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import crypto from "crypto"; // Import crypto module
 
-const s3 = new S3Client({ region: "region" });
-const dynamoDB = new DynamoDBClient({ region: "region" });
-
-const DYNAMODB_TABLE_NAME = "table-name";
+const s3 = new S3Client({ region: process.env.region });
+const dynamoDB = new DynamoDBClient({ region: process.env.region });
+const bucketName = process.env.bucket_name;
+const DYNAMODB_TABLE_NAME = process.env.table_name;
 
 // Function to hash the password
 const hashPassword = (password) => {
@@ -18,7 +18,7 @@ const hashPassword = (password) => {
 // Function to create a simple token
 const createToken = (email) => {
     const timestamp = new Date().toISOString();
-    const token = Buffer.from(`${email}:${timestamp}`).toString('base64'); // Encode email and timestamp
+    const token = Buffer.from(${email}:${timestamp}).toString('base64'); // Encode email and timestamp
     return token; // Return the base64 encoded token
 };
 
@@ -89,7 +89,6 @@ export const handler = async (event) => {
 const signUp = async (event) => {
     const { filename, contentType, email, name, password } = JSON.parse(event.body);
     console.log(filename, contentType, email, name, password);
-    const bucketName = "bucket-name";
 
     // Generate pre-signed URL for image upload
     const uploadParams = {
@@ -110,7 +109,7 @@ const signUp = async (event) => {
         name: { S: name },
         password: { S: hash }, // Store the hashed password
         salt: { S: salt }, // Store the salt for verification
-        profile_image: { S: `https://${bucketName}.s3.amazonaws.com/${filename}` },
+        profile_image: { S: https://${bucketName}.s3.amazonaws.com/${filename} },
         datetime: { S: timestamp },
     };
 
@@ -216,8 +215,6 @@ const hashPasswordWithSalt = (password, salt) => {
 
 const updateProfileImage = async (event) => {
     const { email, oldImageKey, newFilename, newContentType } = JSON.parse(event.body);
-    const bucketName = "k-storage-images";
-
     // Delete the old image from S3
     const deleteParams = {
         Bucket: bucketName,
@@ -242,7 +239,7 @@ const updateProfileImage = async (event) => {
         },
         UpdateExpression: "SET profile_image = :newImage",
         ExpressionAttributeValues: {
-            ":newImage": { S: `https://${bucketName}.s3.amazonaws.com/${newFilename}` },
+            ":newImage": { S: https://${bucketName}.s3.amazonaws.com/${newFilename} },
         },
     };
 
