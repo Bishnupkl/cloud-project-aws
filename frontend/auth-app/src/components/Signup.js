@@ -45,7 +45,7 @@ const Signup = ({ toggleView }) => {
             const contentType = file.type;
 
             const response = await axios.post(
-                'https://j59fj7ydbb.execute-api.us-east-1.amazonaws.com/tegshe/signup',
+                `${process.env.REACT_APP_BASE_API}/signup`,
                 { filename: uniqueFilename, contentType, email, name, password }
             );
 

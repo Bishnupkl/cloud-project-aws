@@ -20,7 +20,7 @@ const Login = ({ toggleView }) => {
         setMessage('');
 
         try {
-            const response = await axios.post('https://j59fj7ydbb.execute-api.us-east-1.amazonaws.com/tegshe/login', { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_BASE_API}/login`, { email, password });
             const { token, profileImageUrl } = response.data; // Ensure this token is in JWT format
             console.log('Token received:', token); // Log the token for debugging
             localStorage.setItem('authToken', token); // Save token in localStorage
