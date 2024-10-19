@@ -18,7 +18,7 @@ const hashPassword = (password) => {
 // Function to create a simple token
 const createToken = (email) => {
     const timestamp = new Date().toISOString();
-    const token = Buffer.from(${email}:${timestamp}).toString('base64'); // Encode email and timestamp
+    const token = Buffer.from(`${email}:${timestamp}`).toString('base64'); // Encode email and timestamp
     return token; // Return the base64 encoded token
 };
 
@@ -109,7 +109,7 @@ const signUp = async (event) => {
         name: { S: name },
         password: { S: hash }, // Store the hashed password
         salt: { S: salt }, // Store the salt for verification
-        profile_image: { S: https://${bucketName}.s3.amazonaws.com/${filename} },
+        profile_image: { S: `https://${bucketName}.s3.amazonaws.com/${filename}` },
         datetime: { S: timestamp },
     };
 
@@ -239,7 +239,7 @@ const updateProfileImage = async (event) => {
         },
         UpdateExpression: "SET profile_image = :newImage",
         ExpressionAttributeValues: {
-            ":newImage": { S: https://${bucketName}.s3.amazonaws.com/${newFilename} },
+            ":newImage": { S: `https://${bucketName}.s3.amazonaws.com/${newFilename}` },
         },
     };
 
