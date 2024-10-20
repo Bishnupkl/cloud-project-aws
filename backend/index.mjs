@@ -57,7 +57,7 @@ export const handler = async (event) => {
                 }
                 break;
             case 'PUT':
-                if (event.path === '/update') {
+                if (event.path === '/updateProfileImage') {
                     return await updateProfileImage(event);
                 }
                 break;
