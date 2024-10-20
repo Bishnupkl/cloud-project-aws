@@ -61,7 +61,7 @@ const Profile = () => {
 
         try {
             // Call the backend to update the profile image
-            const response = await axios.put(`${process.env.MY_API_CLOUD_AWS}/update`, {
+            const response = await axios.put(`${process.env.REACT_APP_BASE_API}/updateProfileImage`, {
                 email,
                 oldImageKey,
                 newFilename: uniqueFilename,
